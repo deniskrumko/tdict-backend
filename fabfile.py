@@ -18,7 +18,7 @@ def remote(host='192.168.1.11', port=8000):
     """Run remove server."""
     ifconfig = subprocess.check_output('ifconfig')
     if host not in ifconfig.decode('utf-8'):
-        return print(f'Host {host} not in "ifconfig"', error=True)
+        return print(f'Host {host} not in "ifconfig"')
 
     return manage(f'runserver {host}:{port}')
 
@@ -32,7 +32,7 @@ def run():
 @task
 def shell():
     """Run python shell."""
-    return manage('shell')
+    return manage('shell_plus')
 
 
 @task
@@ -49,7 +49,6 @@ def startapp(app_name):
         return print(
             'Name of app must include root folder. '
             'Like "apps.{}"'.format(names_list[0]),
-            error=True,
         )
 
     path = '/'.join(names_list)

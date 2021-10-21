@@ -40,3 +40,7 @@ class UserAdmin(UserAdmin):
         'is_staff',
         'is_superuser',
     )
+    readonly_fields = (
+        'last_login',
+        'date_joined',
+    )
