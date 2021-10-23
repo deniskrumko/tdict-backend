@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from django.contrib import messages
 from . import models
 
 
@@ -52,6 +52,9 @@ class WordTranslationAdmin(admin.ModelAdmin):
         'created',
         'modified',
     )
+    actions = (
+        'change_author',
+    )
 
     def save_model(self, request, obj, form, change):
         """Save model and set author."""
@@ -61,7 +64,19 @@ class WordTranslationAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
 
     def _translations(self, obj):
-        x = obj.translations.values_list('word', flat=True)
-        return ','.join(x)
+        """Get translations."""
+        return ','.join(obj.translations.values_list('word', flat=True))
+
+    def change_author(self, request, queryset):
+        """Change words author to current user."""
+        count = queryset.update(author=request.user)
+        return messages.add_message(
+            request,
+            messages.SUCCESS,
+            f'{count} words were successfully updated',
+        )
+
+    change_author.label = 'Change word author to CURRENT user'
+    change_author.short_description = 'Change word author to CURRENT user'
 
     _translations.short_description = 'Translations'

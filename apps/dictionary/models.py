@@ -52,7 +52,7 @@ class WordTranslation(models.Model):
     )
 
     def __str__(self):
-        return f'{self.word} ({self.description})'
+        return f'{self.word} ({self.description or "no description"})'
 
     class Meta:
         verbose_name = 'Word translation'

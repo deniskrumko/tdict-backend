@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% comment %}
+
+  This is overridden `base_site.html` template that contains custom favicon
+  and links in footer.
+
+{% endcomment %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'icons/favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'icons/favicon/site.webmanifest' %}">
+<style>
+#site-name img {
+  width: 32px;
+  position: absolute;
+  left: 15px;
+  top: 8px;
+}
+#site-name a {
+  padding-left: 20px;
+}
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}">
+    <img src="{% static 'icons/favicon/apple-touch-icon.png' %}" alt="">
+    {{ site_header|default:_('Django administration') }}
+  </a>
+</h1>
+{% endblock %}
