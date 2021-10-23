@@ -1,6 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import WordTranslationViewSet
+from .views import WordTranslationPrivateViewSet, WordTranslationPublicViewSet
 
 router = DefaultRouter()
-router.register(r'words', WordTranslationViewSet)
+router.register(r'public/words', WordTranslationPublicViewSet)
+router.register(r'words', WordTranslationPrivateViewSet)
