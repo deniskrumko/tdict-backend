@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import RedirectView
 
+from rest_framework.authtoken.views import obtain_auth_token
+
 from apps.dictionary.api import router as dictionary_router
 
 admin.site.site_header = 'TDict Admin'
@@ -17,7 +19,7 @@ urlpatterns = [
 
     # API
     path('api/', include(dictionary_router.urls)),
-    path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/token/', obtain_auth_token, name='token_auth'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

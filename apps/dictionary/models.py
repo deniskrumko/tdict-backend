@@ -28,6 +28,7 @@ class WordTranslation(models.Model):
     )
     translations = models.ManyToManyField(
         'self',
+        blank=True,
         symmetrical=True,
         verbose_name='Translations',
     )
