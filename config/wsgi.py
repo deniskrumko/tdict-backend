@@ -1,5 +1,5 @@
 """
-WSGI config for deniskrumko project.
+WSGI config for TDict project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
