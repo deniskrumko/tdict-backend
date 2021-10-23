@@ -3,6 +3,7 @@ from .installed_apps import *  # noqa
 from .logging import *  # noqa
 from .middleware import *  # noqa
 from .paths import *  # noqa
+from .rest_framework import *  # noqa
 from .static import *  # noqa
 from .templates import *  # noqa
 

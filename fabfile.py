@@ -147,4 +147,5 @@ def hlogs():
 @task
 def populate_db():
     """Populate database with dummy data."""
-    print('NOT YET IMPLEMENTED')
+    print('Start populating DB')
+    manage('populate_dictionary')

@@ -28,7 +28,6 @@ class WordTranslation(models.Model):
     )
     translations = models.ManyToManyField(
         'self',
-        through='WordTranslationRelation',
         symmetrical=True,
         verbose_name='Translations',
     )
@@ -59,22 +58,3 @@ class WordTranslation(models.Model):
         verbose_name_plural = 'Word translations'
         unique_together = ('word', 'description')
         ordering = ('-modified',)
-
-
-class WordTranslationRelation(models.Model):
-    source = models.ForeignKey(
-        'WordTranslation',
-        related_name='sources',
-        on_delete=models.CASCADE,
-        verbose_name='source',
-    )
-    destination = models.ForeignKey(
-        'WordTranslation',
-        related_name='destinations',
-        on_delete=models.CASCADE,
-        verbose_name='Translated word',
-    )
-
-    class Meta:
-        verbose_name = 'Word translation relation'
-        verbose_name_plural = 'Word translation relations'

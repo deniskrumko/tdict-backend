@@ -3,15 +3,6 @@ from django.contrib import admin
 from . import models
 
 
-class WordTranslationInline(admin.TabularInline):
-    """Inline class for ``WordTranslation`` model."""
-
-    model = models.WordTranslationRelation
-    fk_name = 'source'
-    extra = 0
-    autocomplete_fields = ('destination',)
-
-
 @admin.register(models.WordTranslation)
 class WordTranslationAdmin(admin.ModelAdmin):
     """Admin class for ``WordTranslation`` model."""
@@ -23,6 +14,7 @@ class WordTranslationAdmin(admin.ModelAdmin):
                 'language',
                 'description',
                 'author',
+                'translations',
             ),
         }),
         ('Dates', {
@@ -32,13 +24,14 @@ class WordTranslationAdmin(admin.ModelAdmin):
             ),
         }),
     )
+    autocomplete_fields = (
+        'translations',
+    )
     list_display = (
         'word',
         'language',
         'description',
         'author',
-        'created',
-        'modified',
     )
     list_filter = (
         'language',
@@ -51,9 +44,6 @@ class WordTranslationAdmin(admin.ModelAdmin):
         'author',
         'created',
         'modified',
-    )
-    inlines = (
-        WordTranslationInline,
     )
 
     def save_model(self, request, obj, form, change):
