@@ -27,11 +27,18 @@ class WordTranslationAdmin(admin.ModelAdmin):
     autocomplete_fields = (
         'translations',
     )
+    list_per_page = 20
+    list_display_links = (
+        'id',
+        'word',
+    )
     list_display = (
+        'id',
         'word',
         'language',
         'description',
         'author',
+        '_translations',
     )
     list_filter = (
         'language',
@@ -52,3 +59,9 @@ class WordTranslationAdmin(admin.ModelAdmin):
             obj.author = request.user
 
         return super().save_model(request, obj, form, change)
+
+    def _translations(self, obj):
+        x = obj.translations.values_list('word', flat=True)
+        return ','.join(x)
+
+    _translations.short_description = 'Translations'

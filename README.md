@@ -22,6 +22,7 @@ Words (PUBLIC):
 
 Words (PRIVATE, requires auth token):
 - GET `/api/words/` - get words of current user
+- GET `/api/words/?language=EN` - get words by language (EN/RU)
 - POST `/api/words/` - create new word
 - GET `/api/words/<id>/` - get specific word of current user
 - PATCH `/api/words/<id>/` - update specific word of current user
