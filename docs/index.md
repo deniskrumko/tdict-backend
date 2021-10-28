@@ -46,8 +46,10 @@ Get paginated response with own created words.
 Requires `Authorization` header.
 
 **Query params**:
-- `?page=` — for pagination. By default is page 1.
-- `?language=` — filter by language ("RU", "EN"). By default API returns all languages.
+- `?q=` — search words by `word_from`, `word_to` and `description` fields
+- `?language_from=` — filter by source word language ("RU", "EN")
+- `?language_to=` — filter by translated word language ("RU", "EN")
+- `?page=` — for pagination. By default is page 1
 
 **Response (HTTP 200)**
 ```
