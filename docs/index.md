@@ -116,6 +116,12 @@ Requires `Authorization` header.
 }
 ```
 
+**Response (HTTP 401)** - no token provided
+```
+{
+    "detail": "Authentication credentials were not provided."
+}
+```
 
 ## GET /api/words/\<word_id\>/
 
@@ -137,6 +143,13 @@ Requires `Authorization` header.
             "language": "RU"
         }
     ]
+}
+```
+
+**Response (HTTP 401)** - no token provided
+```
+{
+    "detail": "Authentication credentials were not provided."
 }
 ```
 
@@ -183,6 +196,13 @@ Request can contain all fields or only those fields that needed to be updated. L
 }
 ```
 
+**Response (HTTP 401)** - no token provided
+```
+{
+    "detail": "Authentication credentials were not provided."
+}
+```
+
 **Response (HTTP 404)**
 ```
 {
@@ -196,4 +216,21 @@ Delete single word by ID.
 
 Requires `Authorization` header.
 
-**Response (HTTP 204)** with empty body
+**Response (HTTP 204)** - word successfully deleted
+```
+# response has empty body
+```
+
+**Response (HTTP 401)** - no token provided
+```
+{
+    "detail": "Authentication credentials were not provided."
+}
+```
+
+**Response (HTTP 404)**
+```
+{
+    "detail": "Not found."
+}
+```
