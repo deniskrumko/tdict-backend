@@ -7,30 +7,38 @@ class WordTranslation(models.Model):
     """Model for single word translation."""
 
     # Main fields
-    word = models.CharField(
+    word_from = models.CharField(
         max_length=512,
         null=True,
         blank=False,
-        verbose_name='Word',
+        verbose_name='Word (From)',
     )
-    language = models.CharField(
+    word_to = models.CharField(
+        max_length=512,
+        null=True,
+        blank=False,
+        verbose_name='Word (To)',
+    )
+    language_from = models.CharField(
         max_length=2,
         null=True,
         blank=False,
         choices=LANGUAGE_CHOICES,
         default=Language.EN.name,
-        verbose_name='Language',
+        verbose_name='Language (From)',
+    )
+    language_to = models.CharField(
+        max_length=2,
+        null=True,
+        blank=False,
+        choices=LANGUAGE_CHOICES,
+        default=Language.RU.name,
+        verbose_name='Language (To)',
     )
     description = models.TextField(
         null=True,
         blank=True,
         verbose_name='Description',
-    )
-    translations = models.ManyToManyField(
-        'self',
-        blank=True,
-        symmetrical=True,
-        verbose_name='Translations',
     )
 
     # Extra info fields
@@ -52,10 +60,10 @@ class WordTranslation(models.Model):
     )
 
     def __str__(self):
-        return f'{self.word} ({self.description or "no description"})'
+        return f'{self.word_from} - {self.word_to}'
 
     class Meta:
         verbose_name = 'Word translation'
         verbose_name_plural = 'Word translations'
-        unique_together = ('word', 'description')
+        unique_together = ('word_from', 'word_to')
         ordering = ('-modified',)

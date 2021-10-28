@@ -26,22 +26,14 @@ class Command(BaseCommand):
 
         for line in lines:
             ru_word, en_word, _ = line.split('\t')
-            words = {
-                Language.RU: ru_word,
-                Language.EN: en_word,
-            }
 
-            instances = []
-            for language, word in words.items():
-                word = word.split(',')[0]
-                word_instance, _ = WordTranslation.objects.update_or_create(
-                    word=word,
-                    language=language.value,
-                    description=description_templates[language].format(word),
-                    author=superuser,
-                )
-                instances.append(word_instance)
-
-            instances[0].translations.add(instances[1])
+            WordTranslation.objects.update_or_create(
+                word_from=en_word.split(',')[0],
+                word_to=ru_word.split(',')[0],
+                language_from=Language.EN.value,
+                language_to=Language.RU.value,
+                description=None,
+                author=superuser,
+            )
 
         self.stdout.write(self.style.SUCCESS('Word translations are successfully created'))

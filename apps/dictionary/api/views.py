@@ -1,8 +1,10 @@
+from django.db import models
+
 from rest_framework import authentication, viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from ..models import WordTranslation
-from .serializers import NestedWordTranslationSerializer, WordTranslationSerializer
+from .serializers import WordTranslationSerializer
 
 
 class WordTranslationViewSet(viewsets.ModelViewSet):
@@ -11,25 +13,28 @@ class WordTranslationViewSet(viewsets.ModelViewSet):
     queryset = WordTranslation.objects.all()
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    serializer_classes = {
-        'list': NestedWordTranslationSerializer,
-        'retrieve': NestedWordTranslationSerializer,
-        '__default__': WordTranslationSerializer,
-    }
+    serializer_class = WordTranslationSerializer
 
     def filter_queryset(self, queryset):
         """Filter queryset."""
-        language = self.request.query_params.get('language')
-        if language:
-            queryset = queryset.filter(language=language)
+        language_from = self.request.query_params.get('language_from')
+        if language_from:
+            queryset = queryset.filter(language_from=language_from)
+
+        language_to = self.request.query_params.get('language_to')
+        if language_to:
+            queryset = queryset.filter(language_to=language_to)
+
+        search_query = self.request.query_params.get('q')
+        if search_query:
+            queryset = queryset.filter(
+                models.Q(word_from__icontains=search_query)
+                | models.Q(word_to__icontains=search_query)
+                | models.Q(description__icontains=search_query),
+            )
 
         return queryset.filter(author=self.request.user)
 
     def perform_create(self, serializer):
         """Set author to saved word translation."""
         serializer.save(author=self.request.user)
-
-    def get_serializer_class(self):
-        """Get serializer class depending on action type."""
-        classes_map = self.serializer_classes
-        return classes_map.get(self.action, classes_map['__default__'])

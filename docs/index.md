@@ -57,17 +57,12 @@ Requires `Authorization` header.
     "previous": null,
     "results": [
         {
-            "id": 228,
-            "word": "lizard",
-            "language": "EN",
-            "description": "Description for lizard",
-            "translations": [
-                {
-                    "id": 227,
-                    "word": "ящерица",
-                    "language": "RU"
-                }
-            ]
+            "id": 114,
+            "word_from": "lizard",
+            "word_to": "ящерица",
+            "language_from": "EN",
+            "language_to": "RU",
+            "description": null
         }
     ]
 }
@@ -89,29 +84,31 @@ Requires `Authorization` header.
 **Request**:
 ```
 {
-    "word": "aboba",
-    "language": "EN",
-    "description": "Description for aboba",
-    "translations": [228]  # id of another word
+    "word_from": "lizard",
+    "word_to": "ящерица",
+    "language_from": "EN",
+    "language_to": "RU",
+    "description": "Description"
 }
 ```
 
 **Response (HTTP 201)**
 ```
 {
-    "id": 229,
-    "word": "aboba",
-    "language": "EN",
-    "description": "Description for aboba",
-    "translations": [228]
+    "id": 114,
+    "word_from": "lizard",
+    "word_to": "ящерица",
+    "language_from": "EN",
+    "language_to": "RU",
+    "description": null
 }
 ```
 
-**Response (HTTP 400)**
+**Response (HTTP 400)** - translation already exists
 ```
 {
     "non_field_errors": [
-        "The fields word, description must make a unique set."
+        "The fields word_from, word_to must make a unique set."
     ]
 }
 ```
@@ -132,17 +129,12 @@ Requires `Authorization` header.
 **Response (HTTP 200)**
 ```
 {
-    "id": 228,
-    "word": "lizard",
-    "language": "EN",
-    "description": "Description for lizard",
-    "translations": [
-        {
-            "id": 227,
-            "word": "ящерица",
-            "language": "RU"
-        }
-    ]
+    "id": 114,
+    "word_from": "lizard",
+    "word_to": "ящерица",
+    "language_from": "EN",
+    "language_to": "RU",
+    "description": null
 }
 ```
 
@@ -169,10 +161,11 @@ Requires `Authorization` header.
 **Request**
 ```
 {
-    "word": "aboba",
-    "language": "EN",
-    "description": "Description for aboba",
-    "translations": [228]
+    "word_from": "lizard",
+    "word_to": "ящерица",
+    "language_from": "EN",
+    "language_to": "RU",
+    "description": null
 }
 ```
 
@@ -186,13 +179,12 @@ Request can contain all fields or only those fields that needed to be updated. L
 **Response (HTTP 200)**
 ```
 {
-    "id": 229,
-    "word": "aboba",
-    "language": "EN",
-    "description": "New description",
-    "translations": [
-        228
-    ]
+    "id": 114,
+    "word_from": "lizard",
+    "word_to": "ящерица",
+    "language_from": "EN",
+    "language_to": "RU",
+    "description": null
 }
 ```
 

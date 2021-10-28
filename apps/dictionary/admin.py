@@ -8,43 +8,48 @@ class WordTranslationAdmin(admin.ModelAdmin):
     """Admin class for ``WordTranslation`` model."""
 
     fieldsets = (
-        (None, {
+        ('From', {
             'fields': (
-                'word',
-                'language',
+                'word_from',
+                'language_from',
                 'description',
-                'author',
-                'translations',
             ),
         }),
-        ('Dates', {
+        ('To', {
             'fields': (
+                'word_to',
+                'language_to',
+            ),
+        }),
+        ('Other', {
+            'fields': (
+                'author',
                 'created',
                 'modified',
             ),
         }),
     )
-    autocomplete_fields = (
-        'translations',
-    )
-    list_per_page = 20
+    list_per_page = 50
     list_display_links = (
         'id',
-        'word',
+        'word_from',
     )
     list_display = (
         'id',
-        'word',
-        'language',
+        'word_from',
+        'word_to',
+        'language_from',
+        'language_to',
         'description',
         'author',
-        '_translations',
     )
     list_filter = (
-        'language',
+        'language_from',
+        'language_to',
     )
     search_fields = (
-        'word',
+        'word_from',
+        'word_to',
         'description',
     )
     readonly_fields = (
@@ -63,10 +68,6 @@ class WordTranslationAdmin(admin.ModelAdmin):
 
         return super().save_model(request, obj, form, change)
 
-    def _translations(self, obj):
-        """Get translations."""
-        return ','.join(obj.translations.values_list('word', flat=True))
-
     def change_author(self, request, queryset):
         """Change words author to current user."""
         count = queryset.update(author=request.user)
@@ -78,5 +79,3 @@ class WordTranslationAdmin(admin.ModelAdmin):
 
     change_author.label = 'Change word author to CURRENT user'
     change_author.short_description = 'Change word author to CURRENT user'
-
-    _translations.short_description = 'Translations'
