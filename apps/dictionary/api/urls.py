@@ -1,10 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import WordTranslationPrivateViewSet, WordTranslationPublicViewSet
+from .views import WordTranslationViewSet
 
 router = DefaultRouter()
 
-# TODO: Remove public API
-router.register(r'public/words', WordTranslationPublicViewSet)
-
-router.register(r'words', WordTranslationPrivateViewSet)
+router.register(r'words', WordTranslationViewSet)

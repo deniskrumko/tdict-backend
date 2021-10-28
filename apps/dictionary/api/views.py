@@ -5,31 +5,17 @@ from ..models import WordTranslation
 from .serializers import NestedWordTranslationSerializer, WordTranslationSerializer
 
 
-class WordTranslationPublicViewSet(viewsets.ModelViewSet):
-    """Public view for development only.
-
-    TODO: remove public API
-    """
-
-    queryset = WordTranslation.objects.filter(language='EN')  # TODO: remove this
-    serializer_classes = {
-        'list': NestedWordTranslationSerializer,
-        'retrieve': NestedWordTranslationSerializer,
-        '__default__': WordTranslationSerializer,
-    }
-
-    def get_serializer_class(self):
-        """Get serializer class depending on action type."""
-        classes_map = self.serializer_classes
-        return classes_map.get(self.action, classes_map['__default__'])
-
-
-class WordTranslationPrivateViewSet(WordTranslationPublicViewSet):
+class WordTranslationViewSet(viewsets.ModelViewSet):
     """View to make CRUD operations with word translations."""
 
     queryset = WordTranslation.objects.all()
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [IsAuthenticated]
+    serializer_classes = {
+        'list': NestedWordTranslationSerializer,
+        'retrieve': NestedWordTranslationSerializer,
+        '__default__': WordTranslationSerializer,
+    }
 
     def filter_queryset(self, queryset):
         """Filter queryset."""
@@ -42,3 +28,8 @@ class WordTranslationPrivateViewSet(WordTranslationPublicViewSet):
     def perform_create(self, serializer):
         """Set author to saved word translation."""
         serializer.save(author=self.request.user)
+
+    def get_serializer_class(self):
+        """Get serializer class depending on action type."""
+        classes_map = self.serializer_classes
+        return classes_map.get(self.action, classes_map['__default__'])
