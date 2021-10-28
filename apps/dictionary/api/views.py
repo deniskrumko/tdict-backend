@@ -9,8 +9,8 @@ class WordTranslationViewSet(viewsets.ModelViewSet):
     """View to make CRUD operations with word translations."""
 
     queryset = WordTranslation.objects.all()
-    # authentication_classes = [authentication.TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_classes = {
         'list': NestedWordTranslationSerializer,
         'retrieve': NestedWordTranslationSerializer,
