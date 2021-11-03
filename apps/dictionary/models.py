@@ -42,6 +42,12 @@ class WordTranslation(models.Model):
     )
 
     # Extra info fields
+    source = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name='Source',
+    )
     author = models.ForeignKey(
         'users.User',
         null=True,

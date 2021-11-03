@@ -15,4 +15,5 @@ class WordTranslationSerializer(serializers.ModelSerializer):
             'language_from',
             'language_to',
             'description',
+            'source',
         ]

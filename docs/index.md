@@ -64,7 +64,8 @@ Requires `Authorization` header.
             "word_to": "ящерица",
             "language_from": "EN",
             "language_to": "RU",
-            "description": null
+            "description": null,
+            "source": null,
         }
     ]
 }
@@ -90,7 +91,8 @@ Requires `Authorization` header.
     "word_to": "ящерица",
     "language_from": "EN",
     "language_to": "RU",
-    "description": "Description"
+    "description": "Description",
+    "source": "Source"
 }
 ```
 
@@ -102,7 +104,8 @@ Requires `Authorization` header.
     "word_to": "ящерица",
     "language_from": "EN",
     "language_to": "RU",
-    "description": null
+    "description": "Description",
+    "source": "Source"
 }
 ```
 
@@ -136,7 +139,8 @@ Requires `Authorization` header.
     "word_to": "ящерица",
     "language_from": "EN",
     "language_to": "RU",
-    "description": null
+    "description": null,
+    "source": null
 }
 ```
 
@@ -167,7 +171,8 @@ Requires `Authorization` header.
     "word_to": "ящерица",
     "language_from": "EN",
     "language_to": "RU",
-    "description": null
+    "description": null,
+    "source": null
 }
 ```
 
@@ -186,7 +191,8 @@ Request can contain all fields or only those fields that needed to be updated. L
     "word_to": "ящерица",
     "language_from": "EN",
     "language_to": "RU",
-    "description": null
+    "description": null,
+    "source": null
 }
 ```
 

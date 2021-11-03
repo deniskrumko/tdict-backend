@@ -23,6 +23,7 @@ class WordTranslationAdmin(admin.ModelAdmin):
         }),
         ('Other', {
             'fields': (
+                'source',
                 'author',
                 'created',
                 'modified',
